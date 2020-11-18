@@ -2022,10 +2022,23 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 var QRCode = require("qrcode");
 var canvas = document.getElementById("canvas");
 
-QRCode.toCanvas(canvas, "sample text", function (error) {
+let customTxt = getURLParams();
+
+QRCode.toCanvas(canvas, customTxt, function (error) {
   if (error) console.error(error);
-  console.log("success!");
+  console.log("success! ", customTxt);
 });
+
+function getURLParams() {
+  const urlParams = new URLSearchParams(window.location.search);
+  let customTxt;
+  if (urlParams.has("txt")) {
+    customTxt = urlParams.get("txt");
+  } else {
+    customTxt = "no data";
+  }
+  return customTxt;
+}
 
 },{"qrcode":7}],5:[function(require,module,exports){
 'use strict';
